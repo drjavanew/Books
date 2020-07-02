@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class BookListActivity extends AppCompatActivity {
     private ProgressBar mLoadingProgress;
@@ -54,9 +55,15 @@ public class BookListActivity extends AppCompatActivity {
             } else {
                 tvResult.setVisibility(View.VISIBLE);
                 tvError.setVisibility(View.INVISIBLE);
-
             }
-            tvResult.setText(result);
+            ArrayList<Book> books = ApiUtil.getBooksFromJson(result);
+            String resultString = "";
+            for(Book book: books){
+                resultString = resultString + book.title + "\n" +
+                        book.publishedDate + "\n\n";
+            }
+            tvResult.setText(resultString);
+
         }
 
         @Override
