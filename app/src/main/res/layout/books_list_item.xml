@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_weight="15"
             android:layout_height="wrap_content"
-            android:src="@drawable/book_open"
+            app:srcCompat="@drawable/book_open"
             android:padding="8dp" />
         <LinearLayout
             android:layout_width="0dp"
