@@ -24,23 +24,41 @@ import java.util.ArrayList;
 public class BookListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private ProgressBar mLoadingProgress;
     private RecyclerView rvBooks;
+    private final String TAG = BookListActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         mLoadingProgress = (ProgressBar) findViewById(R.id.pb_loading);
+
+        Bundle extras = getIntent().getExtras();
+        String query = "";
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            query = bundle.get("Query").toString();
+        }
+
+        URL bookUrl;
+        try {
+            if(query == null || query.isEmpty()){
+                bookUrl = ApiUtil.buildUrl("cooking");
+            } else {
+                bookUrl = new URL(query);
+            }
+            new BooksQueryTask().execute(bookUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         rvBooks = (RecyclerView) findViewById(R.id.rv_books);
         LinearLayoutManager booksLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(booksLayoutManager);
 
-        try {
-            URL bookUrl = ApiUtil.buildUrl("cooking");
-            new BooksQueryTask().execute(bookUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.book_list_menu, menu);
