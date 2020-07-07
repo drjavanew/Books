@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class ApiUtil {
     private static final String QUERY_PARAMENTER_KEY = "q";
     private static final String KEY = "key";
-    private static final String API_KEY = "AIzaSyBPlGPQio3dTiL3E_WxlU-h1MQ8nprDXMs";
+    private static final String API_KEY = Apikey.getApiKey();
     private static final String TITLE = "intitle:";
     private static final String AUTHOR = "inauthor:";
     private static final String PUBLISHER = "inpublisher:";
